@@ -172,10 +172,13 @@ temp.columns = ['hist_merchant_id', 'hist_action_type']
 matrix = matrix.merge(temp, on=['user_id'], how='left')  # 统计时间间隔
 ```
 
+* XGBoost
+XGBoost使用以上特征进行预测（除去用户点击行为序列以外的特征）
+测试集AUC最高0.682
 
-XGBoost
-
-DIN模型
+* DIN模型
+DIN网络聚焦使用hist_merchant_id, hist_action_type, merchant_id, action_type作为特征
+使用one-hot编码的 hist_merchant_id（） 和 hist_action_type，测试集AUC最高0.66631
 
 
 ### 未来的改进方向
