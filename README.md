@@ -3,6 +3,14 @@
 
 我们仅使用XGBoost模型，实现了2%的排名（101/5239），
 
+### 数据集介绍
+![QQ截图20210428112156](https://user-images.githubusercontent.com/68730894/116341825-2f38dc80-a814-11eb-951b-53630151b2b9.png)
+
+![QQ截图20210428112408](https://user-images.githubusercontent.com/68730894/116341879-4a0b5100-a814-11eb-95c0-da50c4f6f914.png)
+
+![QQ截图20210428112452](https://user-images.githubusercontent.com/68730894/116341948-627b6b80-a814-11eb-85bc-b792f880ab7f.png)
+
+
 # 特征工程
 我们构建的每个特征根据业务具有可解释性。非线性的多项式通过SHAP值筛选出哪些特征做多项式计算后能为模型做贡献。
 
@@ -15,7 +23,7 @@ temp = user_log.groupby('user_id').size().reset_index().rename(columns={0:'u1'})
 matrix = matrix.merge(temp, on='user_id', how='left') 
 ```
 
-* 时间间隔特征（模型YouTube推荐系统的Example age） 按照小时计算
+* 时间间隔特征（模拟YouTube推荐系统的Example age） 按照小时计算
 ```python
 temp = user_log.groupby('user_id')['time_stamp'].agg([('F_time','min'), ('L_time','max')]).reset_index()  
 temp['u6'] = (temp['F_time'] - temp['L_time']).dt.seconds / 3600 #求出时间间隔dt.seconds  
